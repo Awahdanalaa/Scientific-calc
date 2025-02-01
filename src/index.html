@@ -130,5 +130,54 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    const display = document.getElementById('calc-display');
+    const buttons = document.getElementsByClassName('btn');
+    let currentVal = "";
+    let displayVal = "";
+
+    Array.from(buttons).forEach(button => {
+        button.addEventListener('click', function() {
+            let Val = button.innerText;
+
+            if (Val == "AC") {
+                currentVal = "";
+                displayVal = "";
+            } else if (Val == "=") {
+                try {
+                    currentVal = eval(currentVal);
+                    displayVal = currentVal;
+                } catch {
+                    displayVal = "Error";
+                    currentVal = "";
+                }
+            } else if (Val == "÷") {
+                currentVal += "/";
+                displayVal += "÷";
+            } else if (Val == "×") {
+                currentVal += "*";
+                displayVal += "×";
+            } else if (Val == "%") {
+                if (currentVal.length > 0 && !isNaN(currentVal[currentVal.length - 1])) {
+                    currentVal += "/100";
+                    displayVal += "%";
+                } else {
+                    currentVal += "%";
+                    displayVal += "%";
+                }
+            } else {
+                currentVal += Val;
+                displayVal += Val;
+            }
+
+            display.value = displayVal;
+        });
+    });
+});
+
+
+
+    </script>
 </body>
 </html>
